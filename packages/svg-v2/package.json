@@ -1,5 +1,5 @@
 {
-	"name": "dl-svg-v3",
+	"name": "dl-svg-v2",
 	"license": "ISC",
 	"main": "./index.cjs",
 	"module": "./index.js",
@@ -19,8 +19,9 @@
 		"build:types": "vue-tsc --declaration --emitDeclarationOnly"
 	},
 	"devDependencies": {
-		"dl-utils": "workspace:*",
-		"rollup-plugin-vue": "^6.0.0",
-		"vue": "catalog:vue3"
+		"dl-utils": "workspace:^",
+		"rollup-plugin-vue": "5.1.9",
+		"vue": "catalog:vue2.6",
+		"vue-template-compiler": "catalog:vue2.6"
 	}
 }

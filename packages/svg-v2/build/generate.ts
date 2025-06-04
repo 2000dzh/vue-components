@@ -6,27 +6,26 @@ import { emptyDir, ensureDir } from 'fs-extra';
 import glob from 'fast-glob';
 import camelcase from 'camelcase';
 import { format } from 'prettier';
-import { pathSvgComV3, pathSvgFile } from 'dl-utils';
+import { pathSvgComV2, pathSvgFile } from 'dl-utils';
 import type { BuiltInParserName } from 'prettier';
 
 (async () => {
-	consola.info(chalk.blue('generating svg-vue3 components'));
-	// 创建 pathSvgComV3 目录及其所有必要的父目录
-	await ensureDir(pathSvgComV3);
-	// 删除 pathSvgComV3 目录中的所有文件和子目录，但保留目录本身
-	await emptyDir(pathSvgComV3);
+	consola.info(chalk.blue('generating svg-vue2 components'));
+	// 创建 pathSvgComV2 目录及其所有必要的父目录
+	await ensureDir(pathSvgComV2);
+	// 删除 pathSvgComV2 目录中的所有文件和子目录，但保留目录本身
+	await emptyDir(pathSvgComV2);
 	// 查找 svg 目录及其子目录中所有扩展名为 .svg 的文件
 	const files = await glob(['**/*.svg'], {
 		cwd: pathSvgFile,
 		absolute: true,
 
 		ignore: [
-			'svg-v2/**', // 排除 svg-v2 目录及其子目录中的所有文件
+			'svg-v3/**', // 排除 svg-v2 目录及其子目录中的所有文件
 		],
 	});
-	// await writeFile(`${pathSvgComV3}/ces.txt`, files.join('\n'));
 
-	consola.info(chalk.blue('generating svg-vue3 files'));
+	consola.info(chalk.blue('generating svg-vue2 files'));
 	await Promise.all(files.map(transformToVueComponent));
 
 	generateEntry(files);
@@ -60,15 +59,15 @@ import type { BuiltInParserName } from 'prettier';
 <template>
 ${content}
 </template>
-<script setup>
-defineOptions({
+<script>
+export default {
   name: ${JSON.stringify(componentName)}
-})
+}
 </script>`,
 			'vue'
 		);
 
-		writeFile(path.resolve(pathSvgComV3, `${filename}.vue`), vue, 'utf-8');
+		writeFile(path.resolve(pathSvgComV2, `${filename}.vue`), vue, 'utf-8');
 		return '';
 	}
 
@@ -83,7 +82,7 @@ defineOptions({
 		);
 
 		await writeFile(
-			path.resolve(pathSvgComV3, 'index.ts'),
+			path.resolve(pathSvgComV2, 'index.ts'),
 			content,
 			'utf-8'
 		);
