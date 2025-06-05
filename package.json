@@ -1,11 +1,8 @@
 {
   "name": "vue-components",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "dev-v2": "pnpm run -C play-v2 dev"
+  },
   "dependencies": {
     "typescript": "^5.8.3"
   },

@@ -157,6 +157,9 @@ importers:
       vue:
         specifier: 2.6.14
         version: 2.6.14
+      vue-router:
+        specifier: 3.6.5
+        version: 3.6.5(vue@2.6.14)
       vue-template-compiler:
         specifier: 2.6.14
         version: 2.6.14
@@ -2588,6 +2591,11 @@ packages:
     resolution: {integrity: sha512-bhP7MlgJQ8TIkZJXAfDf78uJO+mEI3CaLABLjv0WNzr4CcGRGPIAItyWYnP6LsPA4Oq0WE+suidNs6dgpO4RHg==}
     peerDependencies:
       vue: ^2.3.0
+
+  vue-router@3.6.5:
+    resolution: {integrity: sha512-VYXZQLtjuvKxxcshuRAwjHnciqZVoXAjTjcqBTz4rKc8qih9g9pI3hbDjmqXaHdgL3v8pV6P8Z335XvHzESxLQ==}
+    peerDependencies:
+      vue: ^2
 
   vue-runtime-helpers@1.1.2:
     resolution: {integrity: sha512-pZfGp+PW/IXEOyETE09xQHR1CKkR9HfHZdnMD/FVLUNI+HxYTa82evx5WrF6Kz4s82qtqHvMZ8MZpbk2zT2E1Q==}
@@ -5050,6 +5058,10 @@ snapshots:
   vue-observe-visibility@0.4.6: {}
 
   vue-resize@0.4.5(vue@2.6.14):
+    dependencies:
+      vue: 2.6.14
+
+  vue-router@3.6.5(vue@2.6.14):
     dependencies:
       vue: 2.6.14
 
