@@ -90,6 +90,13 @@ importers:
         version: 2.2.10(typescript@5.8.3)
 
   packages/el-select-v2:
+    dependencies:
+      element-ui:
+        specifier: 2.15.14
+        version: 2.15.14(vue@2.6.14)
+      vue:
+        specifier: 2.6.14
+        version: 2.6.14
     devDependencies:
       dl-utils:
         specifier: workspace:^
@@ -100,9 +107,6 @@ importers:
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
-      vue:
-        specifier: 2.6.14
-        version: 2.6.14
       vue-template-compiler:
         specifier: 2.6.14
         version: 2.6.14
