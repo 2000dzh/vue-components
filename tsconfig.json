@@ -1,19 +1,6 @@
 {
-	"compilerOptions": {
-		"target": "es2018",
-		"jsx": "preserve",
-		"lib": ["ES2018", "DOM", "DOM.Iterable"],
-		"types": ["node"],
-		"baseUrl": ".",
-		"module": "ESNext",
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"allowJs": false,
-		"strict": true,
-		"noUnusedLocals": true,
-		"sourceMap": false,
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true
-	},
-	"include": ["packages/**/*"]
+	"files": [],
+	"references": [
+    { "path": "./tsconfig.play.json" },
+  ]
 }

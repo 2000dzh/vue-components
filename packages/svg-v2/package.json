@@ -20,7 +20,7 @@
 	},
 	"devDependencies": {
 		"dl-utils": "workspace:^",
-		"rollup-plugin-vue": "5.1.9",
+		"rollup-plugin-vue": "catalog:vue2.6",
 		"vue": "catalog:vue2.6",
 		"vue-template-compiler": "catalog:vue2.6"
 	}

@@ -20,7 +20,10 @@
 	},
 	"devDependencies": {
 		"dl-utils": "workspace:*",
-		"rollup-plugin-vue": "^6.0.0",
+		"rollup-plugin-vue": "catalog:vue3",
 		"vue": "catalog:vue3"
+	},
+	"peerDependencies": {
+		"vue": "^3.0.0"
 	}
 }
