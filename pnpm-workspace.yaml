@@ -2,6 +2,7 @@ packages:
     # packages/ 直接子目录中的所有包
     - packages/*
     - play-v2
+    - play-v3
 
 catalogs:
     vue3:

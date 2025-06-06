@@ -1,7 +1,8 @@
 {
   "name": "vue-components",
   "scripts": {
-    "dev-v2": "pnpm run -C play-v2 dev"
+    "dev-v2": "pnpm run -C play-v2 dev",
+    "dev-v3": "pnpm run -C play-v3 dev"
   },
   "dependencies": {
     "typescript": "^5.8.3"
