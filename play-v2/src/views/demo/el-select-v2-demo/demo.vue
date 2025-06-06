@@ -296,9 +296,6 @@ export default {
 				this.span = 24;
 			}
 		},
-		toGithub() {
-			open('https://github.com/kooriookami/el-select-v2');
-		},
 		remoteMethod(query) {
 			if (query) {
 				this.loading = true;

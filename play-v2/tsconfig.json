@@ -1,0 +1,13 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "baseUrl": "./",
+		"paths": {
+			"el-select-v2": ["../packages/el-select-v2/src/index.js"],
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["src/**/*", "shims-vue.d.ts"]
+}
