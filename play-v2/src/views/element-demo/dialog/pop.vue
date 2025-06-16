@@ -55,6 +55,21 @@
 						</el-form-item>
 					</el-col>
 
+					<el-col :span="8">
+						<el-form-item class="d-name4" prop="name4">
+							<template slot="label">
+								文字换行<br />
+								需要改变行高
+							</template>
+							<el-input
+								v-model="form.name4"
+								placeholder="请输入"
+							/>
+						</el-form-item>
+					</el-col>
+
+          
+
 					<el-col :span="24">
 						<el-form-item label="备注" prop="remarks">
 							<el-input
@@ -144,6 +159,10 @@ export default {
 		open(name, formData = {}) {
 			this.title = name || this.title;
 
+      this.form = {
+        timeList: []
+      }
+
 			this.dialogFormVisible = true;
 		},
 		async submit() {
@@ -196,6 +215,13 @@ export default {
 		max-height: 425px;
 		padding-right: 40px;
 		overflow: auto;
+		.d-name4 {
+			::v-deep {
+				.el-form-item__label {
+					line-height: 19px;
+				}
+			}
+		}
 	}
 }
 </style>

@@ -7,7 +7,8 @@ import { createVuePlugin } from 'vite-plugin-vue2';
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src'),
+      'dl-svg-v2': path.resolve(__dirname, '../packages/svg-v2/src/index.ts')
     }
   },
   plugins: [createVuePlugin()],

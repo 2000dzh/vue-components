@@ -4,25 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  vue2.6:
-    rollup-plugin-vue:
-      specifier: 5.1.9
-      version: 5.1.9
-    vue:
-      specifier: 2.6.14
-      version: 2.6.14
-    vue-template-compiler:
-      specifier: 2.6.14
-      version: 2.6.14
-  vue3:
-    rollup-plugin-vue:
-      specifier: 6.0.0
-      version: 6.0.0
-    vue:
-      specifier: 3.5.14
-      version: 3.5.14
-
 importers:
 
   .:
@@ -120,13 +101,13 @@ importers:
         specifier: workspace:^
         version: link:../utils
       rollup-plugin-vue:
-        specifier: catalog:vue2.6
+        specifier: 5.1.9
         version: 5.1.9(lodash@4.17.21)(postcss@8.5.4)(pug@3.0.3)(vue-template-compiler@2.6.14)
       vue:
-        specifier: catalog:vue2.6
+        specifier: 2.6.14
         version: 2.6.14
       vue-template-compiler:
-        specifier: catalog:vue2.6
+        specifier: 2.6.14
         version: 2.6.14
 
   packages/svg-v3:
@@ -135,10 +116,10 @@ importers:
         specifier: workspace:*
         version: link:../utils
       rollup-plugin-vue:
-        specifier: catalog:vue3
+        specifier: 6.0.0
         version: 6.0.0(@vue/compiler-sfc@3.5.14)
       vue:
-        specifier: catalog:vue3
+        specifier: 3.5.14
         version: 3.5.14(typescript@5.8.3)
 
   packages/utils: {}
@@ -3013,14 +2994,14 @@ snapshots:
   '@babel/template@7.27.2':
     dependencies:
       '@babel/code-frame': 7.27.1
-      '@babel/parser': 7.27.4
+      '@babel/parser': 7.27.5
       '@babel/types': 7.27.3
 
   '@babel/traverse@7.27.4':
     dependencies:
       '@babel/code-frame': 7.27.1
       '@babel/generator': 7.27.5
-      '@babel/parser': 7.27.4
+      '@babel/parser': 7.27.5
       '@babel/template': 7.27.2
       '@babel/types': 7.27.3
       debug: 4.4.1

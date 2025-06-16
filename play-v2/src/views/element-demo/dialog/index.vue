@@ -1,25 +1,36 @@
 <template>
 	<div>
 		<el-button @click="openPop">打开弹框</el-button>
+		<d-icon>
+			<Add />
+		</d-icon>
 
+    <d-icon>
+			<Del />
+		</d-icon>
 		<Pop v-if="popVisible" ref="PopRef" @closeForm="closePop" />
 	</div>
 </template>
 
 <script>
+import { Add, Del } from 'dl-svg-v2';
 import Pop from './pop.vue';
 
 export default {
 	name: 'dialogDemo',
 	components: {
 		Pop,
+		Add,
+    Del
 	},
 	data() {
 		return {
 			popVisible: false,
 		};
 	},
-	created() {},
+	created() {
+		console.log(Add);
+	},
 	methods: {
 		async openPop() {
 			this.popVisible = true;
