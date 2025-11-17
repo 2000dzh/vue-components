@@ -281,11 +281,18 @@ export default {
 			const { setSelected, cachedOptions } = this.$refs.select;
 			const values = this.multiple ? this.localValue : [this.localValue];
 			const selectedOptions = this.flattedOptions
-				.filter((option) =>
-					values?.some((value) =>
-						this.isSameValue(value, option[this.aliasProps.value])
-					)
-				)
+				.filter((option) => {
+					if (Array.isArray(values)) {
+						return values.some((value) =>
+							this.isSameValue(
+								value,
+								option[this.aliasProps.value]
+							)
+						);
+					}
+
+					return false;
+				})
 				.map((option) => ({
 					value: option[this.aliasProps.value],
 					currentLabel: option[this.aliasProps.label],
@@ -308,7 +315,9 @@ export default {
 		},
 		handleScrollerVisible() {
 			const firstValue = this.multiple
-				? this.localValue?.[0]
+				? Array.isArray(this.localValue)
+					? this.localValue[0]
+					: undefined
 				: this.localValue;
 			this.localIndex = this.localOptions.findIndex((option) =>
 				this.isSameValue(option[this.aliasProps.value], firstValue)
@@ -325,12 +334,12 @@ export default {
 				this.filterMethod(query);
 			} else {
 				const groupNameList = this.flattedOptions
-					.filter(
-						(option) =>
-							!option._isGroup &&
-							option[this.aliasProps.label]
-								?.toLowerCase()
-								.includes(query.toLowerCase())
+					.filter((option) =>
+						!option._isGroup && option[this.aliasProps.label]
+							? option[this.aliasProps.label]
+									.toLowerCase()
+									.includes(query.toLowerCase())
+							: false
 					)
 					.map((option) => option._groupName);
 				this.localOptions = this.flattedOptions.filter((option) => {
@@ -340,8 +349,10 @@ export default {
 						);
 					}
 					return option[this.aliasProps.label]
-						?.toLowerCase()
-						.includes(query.toLowerCase());
+						? option[this.aliasProps.label]
+								.toLowerCase()
+								.includes(query.toLowerCase())
+						: false;
 				});
 			}
 		},
@@ -349,9 +360,14 @@ export default {
 			this.localOptions = this.flattedOptions;
 		},
 		async updateDropdownWidth() {
-			if (!this.$refs.select?.$refs.popper || this.fitInputWidth) {
+			if (this.fitInputWidth) {
 				return;
 			}
+
+			if (!(this.$refs.select && this.$refs.select.$refs.popper)) {
+				return;
+			}
+
 			const { inputWidth } = this.$refs.select;
 			const canvas = document.createElement('canvas');
 			const ctx = canvas.getContext('2d');
@@ -399,46 +415,46 @@ export default {
 
 <style lang="scss">
 .el-select-v2__popper {
-  .el-select-dropdown__wrap {
-    max-height: unset;
+	.el-select-dropdown__wrap {
+		max-height: unset;
 
-    .el-select-dropdown__list {
-      padding: 0;
+		.el-select-dropdown__list {
+			padding: 0;
 
-      .el-select-dropdown__header {
-        padding: 10px;
-        border-bottom: 1px solid #e4e7ed;
-      }
+			.el-select-dropdown__header {
+				padding: 10px;
+				border-bottom: 1px solid #e4e7ed;
+			}
 
-      .el-select-dropdown__footer {
-        padding: 10px;
-        border-top: 1px solid #e4e7ed;
-      }
-    }
-  }
+			.el-select-dropdown__footer {
+				padding: 10px;
+				border-top: 1px solid #e4e7ed;
+			}
+		}
+	}
 
-  .scroller {
-    padding: 6px 0;
-    max-height: 238px;
+	.scroller {
+		padding: 6px 0;
+		max-height: 238px;
 
-    &::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-      background-color: transparent;
-    }
+		&::-webkit-scrollbar {
+			width: 6px;
+			height: 6px;
+			background-color: transparent;
+		}
 
-    &::-webkit-scrollbar-thumb {
-      border-radius: 4px;
-      background-color: rgba(144, 147, 153, .3);
+		&::-webkit-scrollbar-thumb {
+			border-radius: 4px;
+			background-color: rgba(144, 147, 153, 0.3);
 
-      &:hover {
-        background-color: rgba(144, 147, 153, .5);
-      }
-    }
-  }
+			&:hover {
+				background-color: rgba(144, 147, 153, 0.5);
+			}
+		}
+	}
 
-  .el-scrollbar__bar {
-    display: none;
-  }
+	.el-scrollbar__bar {
+		display: none;
+	}
 }
 </style>

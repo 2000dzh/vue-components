@@ -1,7 +1,11 @@
 <template>
-	<i class="d-icon-box" :style="style" v-bind="$attrs">
-		<slot />
-	</i>
+  <i
+    class="d-icon-box"
+    :style="style"
+    v-bind="$attrs"
+  >
+    <slot />
+  </i>
 </template>
 
 <script>
