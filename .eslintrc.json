@@ -1,0 +1,22 @@
+{
+	"root": true
+  // "extends": ["eslint-config-dzh-vue3"]
+	// "overrides": [
+	// 	{
+	// 		"files": [
+	// 			"play-v3/**/*.{js,ts,vue}",
+	// 			"play-v2/**/*.{js,ts,vue}",
+	// 			"packages/svg-v3/**/*.{js,ts,vue}"
+	// 		],
+	// 		// "extends": ["eslint-config-vue-dzh"]
+	// 		"extends": ["eslint-config-dzh-vue3"]
+	// 	}
+	// 	// {
+	// 	// 	"files": ["play-v2/**/*.{js,ts,vue}"],
+	// 	//   "extends": ["eslint-config-dzh/vue2"]
+	// 	//   // "rules": {
+	// 	//   //   "no-console": "error"
+	// 	//   // }
+	// 	// }
+	// ]
+}

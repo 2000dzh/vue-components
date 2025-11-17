@@ -1,72 +1,90 @@
 <template>
-	<el-select
-		ref="select"
-		v-model="localValue"
-		class="el-select-v2"
-		:autocomplete="autocomplete"
-		:automatic-dropdown="automaticDropdown"
-		:size="size"
-		:disabled="disabled"
-		:clearable="clearable"
-		:filterable="filterable"
-		:allow-create="false"
-		:loading="loading"
-		:popper-class="`el-select-v2__popper ${popperClass || ''}`"
-		:remote="remote"
-		:loading-text="loadingText"
-		:no-match-text="noMatchText"
-		:no-data-text="noDataText"
-		:remote-method="remoteMethod"
-		:filter-method="localFilterMethod"
-		:multiple="multiple"
-		:multiple-limit="multipleLimit"
-		:placeholder="placeholder"
-		:reserve-keyword="reserveKeyword"
-		:collapse-tags="collapseTags"
-		:popper-append-to-body="popperAppendToBody"
-		:value-key="valueKey"
-		v-bind="$attrs"
-		v-on="$listeners"
-	>
-		<div v-if="$slots.header" class="el-select-dropdown__header">
-			<slot name="header" />
-		</div>
-		<RecycleScroller
-			v-if="localOptions.length"
-			ref="scroller"
-			class="scroller"
-			:style="scrollerStyle"
-			:items="localOptions"
-			:min-item-size="minItemSize"
-			:key-field="aliasProps.value"
-			@visible="handleScrollerVisible"
-		>
-			<template slot-scope="row">
-				<li v-if="row.item._isGroup" class="el-select-group__title">
-					{{ row.item[aliasProps.label] }}
-				</li>
-				<el-option
-					v-else
-					:key="getOptionKey(row.item)"
-					:value="row.item[aliasProps.value]"
-					:label="row.item[aliasProps.label]"
-					:disabled="row.item[aliasProps.disabled]"
-					@mousemove.native="hoverItem(row.item)"
-				>
-					<slot name="default" :item="row.item" />
-				</el-option>
-			</template>
-		</RecycleScroller>
-		<div v-if="$slots.footer" class="el-select-dropdown__footer">
-			<slot name="footer" />
-		</div>
-		<template v-if="$slots.prefix" slot="prefix">
-			<slot name="prefix" />
-		</template>
-		<template v-if="$slots.empty" slot="empty">
-			<slot name="empty" />
-		</template>
-	</el-select>
+  <el-select
+    ref="select"
+    v-model="localValue"
+    class="el-select-v2"
+    :autocomplete="autocomplete"
+    :automatic-dropdown="automaticDropdown"
+    :size="size"
+    :disabled="disabled"
+    :clearable="clearable"
+    :filterable="filterable"
+    :allow-create="false"
+    :loading="loading"
+    :popper-class="`el-select-v2__popper ${popperClass || ''}`"
+    :remote="remote"
+    :loading-text="loadingText"
+    :no-match-text="noMatchText"
+    :no-data-text="noDataText"
+    :remote-method="remoteMethod"
+    :filter-method="localFilterMethod"
+    :multiple="multiple"
+    :multiple-limit="multipleLimit"
+    :placeholder="placeholder"
+    :reserve-keyword="reserveKeyword"
+    :collapse-tags="collapseTags"
+    :popper-append-to-body="popperAppendToBody"
+    :value-key="valueKey"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
+    <div
+      v-if="$slots.header"
+      class="el-select-dropdown__header"
+    >
+      <slot name="header" />
+    </div>
+    <RecycleScroller
+      v-if="localOptions.length"
+      ref="scroller"
+      class="scroller"
+      :style="scrollerStyle"
+      :items="localOptions"
+      :min-item-size="minItemSize"
+      :key-field="aliasProps.value"
+      @visible="handleScrollerVisible"
+    >
+      <template #default="row">
+        <li
+          v-if="row.item._isGroup"
+          class="el-select-group__title"
+        >
+          {{ row.item[aliasProps.label] }}
+        </li>
+        <el-option
+          v-else
+          :key="getOptionKey(row.item)"
+          :value="row.item[aliasProps.value]"
+          :label="row.item[aliasProps.label]"
+          :disabled="row.item[aliasProps.disabled]"
+          @mousemove.native="hoverItem(row.item)"
+        >
+          <slot
+            name="default"
+            :item="row.item"
+          />
+        </el-option>
+      </template>
+    </RecycleScroller>
+    <div
+      v-if="$slots.footer"
+      class="el-select-dropdown__footer"
+    >
+      <slot name="footer" />
+    </div>
+    <template
+      v-if="$slots.prefix"
+      #prefix
+    >
+      <slot name="prefix" />
+    </template>
+    <template
+      v-if="$slots.empty"
+      #empty
+    >
+      <slot name="empty" />
+    </template>
+  </el-select>
 </template>
 
 <script>
@@ -77,11 +95,11 @@ import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 import NavigationMixin from './navigation-mixin.js';
 
 export default {
-	mixins: [NavigationMixin],
 	name: 'ElSelectV2',
 	components: {
 		RecycleScroller,
 	},
+	mixins: [NavigationMixin],
 	props: {
 		value: {
 			type: [Array, String, Number, Boolean, Object],
@@ -159,6 +177,86 @@ export default {
 				options: 'options',
 			},
 		};
+	},
+	computed: {
+		aliasProps() {
+			return {
+				...this.defaultProps,
+				...this.props,
+			};
+		},
+		flattedOptions() {
+			if (!Array.isArray(this.options)) {
+				return [];
+			}
+			const list = [];
+			this.options.forEach((option) => {
+				const _groupName = uuidv4();
+				if (Array.isArray(option[this.aliasProps.options])) {
+					list.push({
+						...option,
+						_isGroup: true,
+						_groupName,
+						[this.aliasProps.value]: uuidv4(),
+					});
+					list.push(
+						...option[this.aliasProps.options].map((subOption) => ({
+							...subOption,
+							_groupName,
+						}))
+					);
+				} else {
+					list.push(option);
+				}
+			});
+			if (
+				this.allowCreate &&
+				this.query &&
+				!list.some(
+					(option) => option[this.aliasProps.label] === this.query
+				)
+			) {
+				list.unshift({
+					[this.aliasProps.value]: this.query,
+					[this.aliasProps.label]: this.query,
+				});
+			}
+			return list;
+		},
+		scrollerStyle() {
+			return {
+				width: this.dropdownWidth ? `${this.dropdownWidth}px` : '',
+			};
+		},
+	},
+	watch: {
+		value: {
+			handler() {
+				if (!isEqual(this.value, this.localValue)) {
+					this.localValue = this.value;
+					this.updateSelectedLabel();
+				}
+			},
+			deep: true,
+			immediate: true,
+		},
+		options: {
+			handler() {
+				this.updateOptions();
+				const inputs = this.$el.querySelectorAll('input');
+				if (!Array.from(inputs).includes(document.activeElement)) {
+					this.updateSelectedLabel();
+				}
+			},
+			deep: true,
+		},
+		localOptions() {
+			this.updateHoverIndex();
+			this.updateDropdownWidth();
+		},
+		localIndex() {
+			this.updateHoverIndex();
+		},
 	},
 	mounted() {
 		this.updateSelectedLabel();
@@ -294,86 +392,6 @@ export default {
 		},
 		blur() {
 			this.$refs.select.blur();
-		},
-	},
-	computed: {
-		aliasProps() {
-			return {
-				...this.defaultProps,
-				...this.props,
-			};
-		},
-		flattedOptions() {
-			if (!Array.isArray(this.options)) {
-				return [];
-			}
-			const list = [];
-			this.options.forEach((option) => {
-				const _groupName = uuidv4();
-				if (Array.isArray(option[this.aliasProps.options])) {
-					list.push({
-						...option,
-						_isGroup: true,
-						_groupName,
-						[this.aliasProps.value]: uuidv4(),
-					});
-					list.push(
-						...option[this.aliasProps.options].map((subOption) => ({
-							...subOption,
-							_groupName,
-						}))
-					);
-				} else {
-					list.push(option);
-				}
-			});
-			if (
-				this.allowCreate &&
-				this.query &&
-				!list.some(
-					(option) => option[this.aliasProps.label] === this.query
-				)
-			) {
-				list.unshift({
-					[this.aliasProps.value]: this.query,
-					[this.aliasProps.label]: this.query,
-				});
-			}
-			return list;
-		},
-		scrollerStyle() {
-			return {
-				width: this.dropdownWidth ? `${this.dropdownWidth}px` : '',
-			};
-		},
-	},
-	watch: {
-		value: {
-			handler() {
-				if (!isEqual(this.value, this.localValue)) {
-					this.localValue = this.value;
-					this.updateSelectedLabel();
-				}
-			},
-			deep: true,
-			immediate: true,
-		},
-		options: {
-			handler() {
-				this.updateOptions();
-				const inputs = this.$el.querySelectorAll('input');
-				if (!Array.from(inputs).includes(document.activeElement)) {
-					this.updateSelectedLabel();
-				}
-			},
-			deep: true,
-		},
-		localOptions() {
-			this.updateHoverIndex();
-			this.updateDropdownWidth();
-		},
-		localIndex() {
-			this.updateHoverIndex();
 		},
 	},
 };

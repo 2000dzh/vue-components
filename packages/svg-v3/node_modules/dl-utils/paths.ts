@@ -14,3 +14,7 @@ export const pathSvgComV2 = resolve(pathSvgV2, './components');
 
 export const pathSelectV2 = resolve(pathPac, './el-select-v2');
 export const pathSelectOutputV2 = resolve(pathSelectV2, './dist');
+
+
+export const pathPie = resolve(pathPac, './pie-3d');
+export const pathPieOutput = resolve(pathPie, './dist');

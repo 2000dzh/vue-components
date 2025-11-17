@@ -5,14 +5,14 @@ import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
-import { pathSelectV2, pathSelectOutputV2 } from 'dl-utils';
+import { pathPie, pathPieOutput } from 'dl-utils';
 import { emptyDir } from 'fs-extra';
 
 (async () => {
   const buildFullEntry = async (minify: boolean) => {
     const bundle = await rollup({
-      input: path.resolve(pathSelectV2, './src/index.js'),
-      external: ['vue', 'element-ui'],
+      input: path.resolve(pathPie, './src/index.js'),
+      external: ['vue'],
       plugins: [
         postcss({
           extensions: ['.css'],
@@ -47,7 +47,7 @@ import { emptyDir } from 'fs-extra';
       bundle.write({
         format: 'esm',
         file: path.resolve(
-          pathSelectOutputV2,
+          pathPieOutput,
           `index${minify ? '.min' : ''}.js`
         ),
         sourcemap: minify,
@@ -55,10 +55,10 @@ import { emptyDir } from 'fs-extra';
       bundle.write({
         format: 'umd',
         file: path.resolve(
-          pathSelectOutputV2,
+          pathPieOutput,
           `index-umd${minify ? '.min' : ''}.js`
         ),
-        name: 'ElSelectV2',
+        name: 'TxPie3d',
         globals: {
           vue: 'Vue',
           'element-ui': 'ElementUI',
@@ -69,6 +69,6 @@ import { emptyDir } from 'fs-extra';
   };
 
   // 删除 dist 目录中的所有文件和子目录，但保留目录本身
-  await emptyDir(pathSelectOutputV2);
+  await emptyDir(pathPieOutput);
   await Promise.all([buildFullEntry(true), buildFullEntry(false)]);
 })();

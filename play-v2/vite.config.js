@@ -8,7 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      'dl-svg-v2': path.resolve(__dirname, '../packages/svg-v2/src/index.ts')
+      'dl-svg-v2': path.resolve(__dirname, '../packages/svg-v2/src/index.ts'),
+      'pie-3d': path.resolve(__dirname, '../packages/pie-3d/src/index.js')
     }
   },
   plugins: [createVuePlugin()],

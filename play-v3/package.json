@@ -11,5 +11,8 @@
 		"element-plus": "^2.9.11",
 		"vue": "3.5.14",
 		"vue-router": "4.5.1"
+	},
+	"devDependencies": {
+		"eslint-config-dzh-vue3": "^1.0.12"
 	}
 }

@@ -7,11 +7,17 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@zumer/snapdom": "^1.9.5",
 		"el-select-v2": "workspace:^",
 		"element-ui": "2.15.14",
+		"html2canvas": "^1.4.1",
 		"normalize.css": "^8.0.1",
+		"pie-3d": "workspace:^",
 		"vue": "2.6.14",
 		"vue-router": "3.6.5",
 		"vue-template-compiler": "2.6.14"
+	},
+	"devDependencies": {
+		"eslint-config-dzh-vue2": "^1.0.1"
 	}
 }
