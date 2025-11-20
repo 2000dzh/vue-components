@@ -279,7 +279,13 @@ export default {
 				return;
 			}
 			const { setSelected, cachedOptions } = this.$refs.select;
-			const values = this.multiple ? this.localValue : [this.localValue];
+			const values = this.multiple
+				? this.collapseTags
+					? Array.isArray(this.localValue)
+						? this.localValue.slice(0, 1)
+						: []
+					: this.localValue
+				: [this.localValue];
 			const selectedOptions = this.flattedOptions
 				.filter((option) => {
 					if (Array.isArray(values)) {

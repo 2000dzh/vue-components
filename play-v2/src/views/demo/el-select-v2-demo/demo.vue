@@ -1,225 +1,286 @@
 <template>
-	<div class="demo-container">
-		<div ref="demoContent" class="demo-content">
-			<el-row :gutter="20">
-				<el-col :span="span">
-					<p class="title">基础用法</p>
-					<p class="description">适用广泛的基础选择器</p>
-					<el-select-v2
-						v-model="form.value1"
-						:options="options"
-						:size="form.size"
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">有禁用选项</p>
-					<p class="description">
-						在 options 中，设定 disabled 值为 true，即可禁用该选项
-					</p>
-					<el-select-v2
-						v-model="form.value2"
-						:options="disabledOptions"
-						:size="form.size"
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">禁用状态</p>
-					<p class="description">选择器不可用状态</p>
-					<el-select-v2
-						v-model="form.value3"
-						:options="options"
-						:size="form.size"
-						disabled
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">可清空单选</p>
-					<p class="description">
-						包含清空按钮，可将选择器清空为初始状态
-					</p>
-					<el-select-v2
-						v-model="form.value4"
-						:options="options"
-						:size="form.size"
-						clearable
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">基础多选</p>
-					<p class="description">基础多选</p>
-					<el-select-v2
-						v-model="form.value5"
-						:options="options"
-						:size="form.size"
-						multiple
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">自定义模板</p>
-					<p class="description">可以自定义备选项</p>
-					<el-select-v2
-						v-model="form.value6"
-						:options="options"
-						:size="form.size"
-					>
-						<template #default="{ item }">
-							<span>{{ item.label }}</span>
-							<span
-								style="
+  <div class="demo-container">
+    <div
+      ref="demoContent"
+      class="demo-content"
+    >
+      <el-row :gutter="20">
+        <el-col :span="span">
+          <p class="title">
+            基础用法
+          </p>
+          <p class="description">
+            适用广泛的基础选择器
+          </p>
+          <el-select-v2
+            v-model="form.value1"
+            :options="options"
+            :size="form.size"
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            有禁用选项
+          </p>
+          <p class="description">
+            在 options 中，设定 disabled 值为 true，即可禁用该选项
+          </p>
+          <el-select-v2
+            v-model="form.value2"
+            :options="disabledOptions"
+            :size="form.size"
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            禁用状态
+          </p>
+          <p class="description">
+            选择器不可用状态
+          </p>
+          <el-select-v2
+            v-model="form.value3"
+            :options="options"
+            :size="form.size"
+            disabled
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            可清空单选
+          </p>
+          <p class="description">
+            包含清空按钮，可将选择器清空为初始状态
+          </p>
+          <el-select-v2
+            v-model="form.value4"
+            :options="options"
+            :size="form.size"
+            clearable
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            基础多选
+          </p>
+          <p class="description">
+            基础多选
+          </p>
+          <el-select-v2
+            v-model="form.value5"
+            :options="options"
+            :size="form.size"
+            multiple
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            自定义模板
+          </p>
+          <p class="description">
+            可以自定义备选项
+          </p>
+          <el-select-v2
+            v-model="form.value6"
+            :options="options"
+            :size="form.size"
+          >
+            <template #default="{ item }">
+              <span>{{ item.label }}</span>
+              <span
+                style="
 									color: var(--info-color);
 									margin-left: 10px;
 								"
-								>{{ item.value }}</span
-							>
-						</template>
-					</el-select-v2>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">可搜索</p>
-					<p class="description">可以利用搜索功能快速查找选项</p>
-					<el-select-v2
-						v-model="form.value7"
-						:options="options"
-						:size="form.size"
-						filterable
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">远程搜索</p>
-					<p class="description">
-						从服务器搜索数据，输入关键字进行查找
-					</p>
-					<el-select-v2
-						v-model="form.value8"
-						:options="remoteOptions"
-						:size="form.size"
-						remote
-						:remote-method="remoteMethod"
-						:loading="loading"
-						filterable
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">创建条目</p>
-					<p class="description">可以创建并选中选项中不存在的条目</p>
-					<el-select-v2
-						v-model="form.value9"
-						:options="options"
-						:size="form.size"
-						multiple
-						filterable
-						allow-create
-						default-first-option
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">自适应菜单宽度</p>
-					<p class="description">
-						计算每一项的宽度，选择最大的作为下拉菜单宽度
-					</p>
-					<el-select-v2
-						v-model="form.value10"
-						:options="longOptions"
-						:size="form.size"
-						:fit-input-width="false"
-						filterable
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">将选项进行分组</p>
-					<p class="description">
-						你可以为选项进行分组来区分不同的选项
-					</p>
-					<el-select-v2
-						v-model="form.value11"
-						:options="groupOptions"
-						:size="form.size"
-						:fit-input-width="false"
-						filterable
-					/>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">下拉菜单的头部和底部</p>
-					<p class="description">您可以自定义下拉菜单的头部和底部</p>
-					<el-select-v2
-						v-model="form.value12"
-						:options="options"
-						:size="form.size"
-						multiple
-						collapse-tags
-					>
-						<template #header>
-							<el-checkbox
-								v-model="checkAll"
-								:indeterminate="indeterminate"
-								@change="selectMany"
-							>
-								选择前 20 项
-							</el-checkbox>
-						</template>
-						<template #footer>
-							<el-button type="primary" size="mini"
-								>底部按钮</el-button
-							>
-						</template>
-					</el-select-v2>
-				</el-col>
-				<el-col :span="span">
-					<p class="title">绑定对象值</p>
-					<p class="description">使用 value-key 绑定对象值</p>
-					<el-select-v2
-						v-model="form.value13"
-						:options="objectOptions"
-						value-key="name"
-						:size="form.size"
-					/>
-				</el-col>
-			</el-row>
-		</div>
-		<div class="form">
-			<div class="form-header">
-				<div class="form-title">
-					<span>Select V2 虚拟列表选择器</span>
-				</div>
-				<div class="form-description">
-					<span
-						>不论你的数据量多大，虚拟列表都能毫无压力地处理。</span
-					>
-				</div>
-			</div>
+              >{{ item.value }}</span>
+            </template>
+          </el-select-v2>
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            可搜索
+          </p>
+          <p class="description">
+            可以利用搜索功能快速查找选项
+          </p>
+          <el-select-v2
+            v-model="form.value7"
+            :options="options"
+            :size="form.size"
+            filterable
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            远程搜索
+          </p>
+          <p class="description">
+            从服务器搜索数据，输入关键字进行查找
+          </p>
+          <el-select-v2
+            v-model="form.value8"
+            :options="remoteOptions"
+            :size="form.size"
+            remote
+            :remote-method="remoteMethod"
+            :loading="loading"
+            filterable
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            创建条目
+          </p>
+          <p class="description">
+            可以创建并选中选项中不存在的条目
+          </p>
+          <el-select-v2
+            v-model="form.value9"
+            :options="options"
+            :size="form.size"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            自适应菜单宽度
+          </p>
+          <p class="description">
+            计算每一项的宽度，选择最大的作为下拉菜单宽度
+          </p>
+          <el-select-v2
+            v-model="form.value10"
+            :options="longOptions"
+            :size="form.size"
+            :fit-input-width="false"
+            filterable
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            将选项进行分组
+          </p>
+          <p class="description">
+            你可以为选项进行分组来区分不同的选项
+          </p>
+          <el-select-v2
+            v-model="form.value11"
+            :options="groupOptions"
+            :size="form.size"
+            :fit-input-width="false"
+            filterable
+          />
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            下拉菜单的头部和底部
+          </p>
+          <p class="description">
+            您可以自定义下拉菜单的头部和底部
+          </p>
+          <el-select-v2
+            v-model="form.value12"
+            :options="options"
+            :size="form.size"
+            multiple
+            collapse-tags
+          >
+            <template #header>
+              <el-checkbox
+                v-model="checkAll"
+                :indeterminate="indeterminate"
+                @change="selectAll"
+              >
+                全选
+              </el-checkbox>
+            </template>
+            <template #footer>
+              <el-button
+                type="primary"
+                size="mini"
+              >
+                底部按钮
+              </el-button>
+            </template>
+          </el-select-v2>
+        </el-col>
+        <el-col :span="span">
+          <p class="title">
+            绑定对象值
+          </p>
+          <p class="description">
+            使用 value-key 绑定对象值
+          </p>
+          <el-select-v2
+            v-model="form.value13"
+            :options="objectOptions"
+            value-key="name"
+            :size="form.size"
+          />
+        </el-col>
+      </el-row>
+    </div>
+    <div class="form">
+      <div class="form-header">
+        <div class="form-title">
+          <span>Select V2 虚拟列表选择器</span>
+        </div>
+        <div class="form-description">
+          <span>不论你的数据量多大，虚拟列表都能毫无压力地处理。</span>
+        </div>
+      </div>
 
-			<div class="form-main">
-				<el-form :model="form" label-width="auto" size="small">
-					<el-form-item label="尺寸">
-						<el-radio-group v-model="form.size">
-							<el-radio-button label="">默认</el-radio-button>
-							<el-radio-button label="medium"
-								>中等</el-radio-button
-							>
-							<el-radio-button label="small"
-								>小型</el-radio-button
-							>
-							<el-radio-button label="mini">超小</el-radio-button>
-						</el-radio-group>
-					</el-form-item>
-				</el-form>
+      <div class="form-main">
+        <el-form
+          :model="form"
+          label-width="auto"
+          size="small"
+        >
+          <el-form-item label="尺寸">
+            <el-radio-group v-model="form.size">
+              <el-radio-button label="">
+                默认
+              </el-radio-button>
+              <el-radio-button label="medium">
+                中等
+              </el-radio-button>
+              <el-radio-button label="small">
+                小型
+              </el-radio-button>
+              <el-radio-button label="mini">
+                超小
+              </el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+        </el-form>
 
-				<div class="button-group">
-					<el-button type="primary" size="small" @click="randomSelect"
-						>随机选择</el-button
-					>
-					<el-button plain size="small" @click="insertOption"
-						>插入第一个选择器</el-button
-					>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="button-group">
+          <el-button
+            type="primary"
+            size="small"
+            @click="randomSelect"
+          >
+            随机选择
+          </el-button>
+          <el-button
+            plain
+            size="small"
+            @click="insertOption"
+          >
+            插入第一个选择器
+          </el-button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-	name: 'Demo',
+	name: 'SelectDemo',
 	data() {
 		return {
 			loading: false,
@@ -249,6 +310,19 @@ export default {
 			checkAll: false,
 			indeterminate: false,
 		};
+	},
+	watch: {
+		'form.value12'(val) {
+			if (val.length === 0) {
+				this.checkAll = false;
+				this.indeterminate = false;
+			} else if (val.length === this.options.length) {
+				this.checkAll = true;
+				this.indeterminate = false;
+			} else {
+				this.indeterminate = true;
+			}
+		},
 	},
 	created() {
 		for (let i = 0; i < 10000; i++) {
@@ -332,27 +406,12 @@ export default {
 			});
 			this.form.value1 = `value ${timestamp}`;
 		},
-		selectMany(val) {
+		selectAll(val) {
 			this.indeterminate = false;
 			if (val) {
-				this.form.value12 = this.options
-					.slice(0, 20)
-					.map((_) => _.value);
+				this.form.value12 = this.options.map((_) => _.value);
 			} else {
 				this.form.value12 = [];
-			}
-		},
-	},
-	watch: {
-		'form.value12'(val) {
-			if (val.length === 0) {
-				this.checkAll = false;
-				this.indeterminate = false;
-			} else if (val.length === this.options.length) {
-				this.checkAll = true;
-				this.indeterminate = false;
-			} else {
-				this.indeterminate = true;
 			}
 		},
 	},

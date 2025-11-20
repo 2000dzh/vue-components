@@ -6,6 +6,7 @@
     "baseUrl": "./",
 		"paths": {
 			"el-select-v2": ["../packages/el-select-v2/src/index.js"],
+			"pie-3d": ["../packages/pie-3d/src/index.js"],
 			"@/*": ["src/*"]
 		}
 	},

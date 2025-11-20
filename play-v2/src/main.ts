@@ -19,8 +19,6 @@ Vue.use(ElSelectV2 as unknown as PluginObject<unknown>);
 Vue.use(TxPie3d as unknown as PluginObject<unknown>);
 Vue.component('d-icon', DIcon);
 
-// console.log(Pie3d)
-
 new Vue({
 	el: '#app',
 	render: (h) => {
